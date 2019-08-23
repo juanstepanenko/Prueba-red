@@ -7,7 +7,7 @@ from tensorflow.python.keras.layers import  Convolution2D, MaxPooling2D
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras import applications
 
-def model():
+def model(amountClasses):
     vgg=applications.vgg16.VGG16()
     cnn=Sequential()
     for capa in vgg.layers:
@@ -15,7 +15,7 @@ def model():
     cnn.layers.pop()
     for layer in cnn.layers:
         layer.trainable=False
-    cnn.add(Dense(2,activation='softmax'))
+    cnn.add(Dense(amountClasses,activation='softmax'))
     
     return cnn
 
@@ -63,7 +63,7 @@ validationImage=datagenValidation.flow_from_directory(
 
 # Network creation
 
-cnn=model()
+cnn=model(classes)
 
 cnn.compile(loss='categorical_crossentropy',
             optimizer=optimizers.Adam(lr=lr),
