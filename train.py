@@ -10,8 +10,8 @@ from tensorflow.python.keras import applications
 def model(amountClasses):
     vgg=applications.vgg16.VGG16()
     cnn=Sequential()
-    for capa in vgg.layers:
-        cnn.add(capa)
+    for layer in vgg.layers:
+        cnn.add(layer)
     cnn.layers.pop()
     for layer in cnn.layers:
         layer.trainable=False
